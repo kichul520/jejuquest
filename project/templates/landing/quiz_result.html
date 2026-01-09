@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}퀴즈 결과{% endblock %}
+
+{% block content %}
+<section class="result-section">
+    <div class="container">
+        {% if is_correct %}
+        <div class="result-card result-correct animate-in">
+            <div class="result-icon">🎉</div>
+            <h2>정답입니다!</h2>
+            <p class="result-message">
+                {{ quiz.explanation }}
+            </p>
+            <div class="stamp">QUEST CLEAR!</div>
+            <p style="margin-top: 2rem; color: var(--text-light);">
+                이런 흥미로운 퀘스트가 제주 곳곳에 숨어있어요.<br>
+                실전에서는 더 많은 보물이 기다립니다!
+            </p>
+            <div class="result-actions">
+                <a href="{% url 'landing:quiz' %}" class="btn btn-secondary">
+                    🎲 다른 문제 풀기 ({{ total_quizzes }}개)
+                </a>
+                <a href="{% url 'landing:pre_register' %}" class="btn btn-primary">
+                    탐험대 합류하기
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <div class="result-card result-incorrect animate-in">
+            <div class="result-icon">🤔</div>
+            <h2>아쉬워요!</h2>
+            <p class="result-message">
+                정답은 <strong>{{ quiz.answer }}</strong>이었어요!<br><br>
+                {{ quiz.explanation }}
+            </p>
+            <p style="color: var(--text-light); margin-top: 1rem;">
+                괜찮아요! 실제 제주에서 직접 확인하면 더 기억에 남을 거예요.
+            </p>
+            <div class="result-actions">
+                <a href="{% url 'landing:quiz' %}" class="btn btn-secondary">
+                    🎲 다른 문제 풀기 ({{ total_quizzes }}개)
+                </a>
+                <a href="{% url 'landing:pre_register' %}" class="btn btn-primary">
+                    탐험대 합류하기
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

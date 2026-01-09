@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제주퀘스트 출시 알림</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #FF7F00;
+            text-decoration: none;
+        }
+
+        .card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #FF7F00;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .code-box {
+            background: #fff;
+            border: 2px dashed #FF7F00;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: #FF7F00;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="https://jejuquest.com" class="logo">🗺️ Jeju Quest</a>
+        </div>
+
+        <h2>축하합니다, 탐험대원님! 🎉</h2>
+        <p>드디어 제주퀘스트가 정식 출시되었습니다.<br>사전예약 해주셔서 진심으로 감사드립니다.</p>
+
+        <div class="card">
+            <h3>🎁 스타터 팩 잠금해제 코드</h3>
+            <p>앱 설치 후 아래 코드를 입력하면<br>무료 스타터 퀘스트 팩이 즉시 지급됩니다.</p>
+            <div class="code-box">{{ referral_code }}</div>
+            <p>※ 친구에게 공유하면 추가 보상을 받을 수 있어요!</p>
+        </div>
+
+        <div class="card">
+            <h3>🎟️ 얼리버드 30% 할인 쿠폰</h3>
+            <p>유료 퀘스트 팩 구매 시 사용하세요 (2026년 말까지)</p>
+            <div class="code-box">EARLY2026</div>
+        </div>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="#" class="btn">앱 다운로드 받기</a>
+        </div>
+
+        <div class="footer">
+            <p>본 메일은 제주퀘스트 사전예약 신청자에게 발송되었습니다.</p>
+            <p>© 2026 연트래블러스(주). All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

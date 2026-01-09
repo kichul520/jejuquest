@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+
+{% block title %}사전 예약{% endblock %}
+
+{% block content %}
+<section class="register-section">
+    <div class="container">
+        {% if success %}
+        <!-- 등록 완료 -->
+        <div class="success-card animate-in">
+            <div class="success-icon">🎊</div>
+            <h2>탐험대 합류 완료!</h2>
+            <p style="color: var(--text-light);">
+                축하합니다! 이제 당신도 Jeju Quest 탐험대원입니다.
+            </p>
+
+            <div class="referral-box">
+                <p style="margin-bottom: 0.5rem; font-size: 0.9rem;">나의 추천 코드</p>
+                <p class="referral-code">{{ referral_code }}</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                    친구를 초대하면 추가 보상을 드려요!
+                </p>
+            </div>
+
+            <div class="share-buttons">
+                <button onclick="shareKakao()" class="btn btn-outline btn-small btn-kakao">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 4px;">
+                        <path d="M12 3C6.477 3 2 6.463 2 10.691c0 2.652 1.758 4.976 4.396 6.296-.143.522-.921 3.358-.953 3.573 0 0-.019.159.084.22.103.061.225.013.225.013.296-.041 3.434-2.252 3.979-2.632.744.104 1.507.159 2.269.159 5.523 0 10-3.463 10-7.629C22 6.463 17.523 3 12 3z"/>
+                    </svg>
+                    카카오톡
+                </button>
+                <button onclick="shareInstagram()" class="btn btn-outline btn-small btn-instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 4px;">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    인스타그램
+                </button>
+                <button onclick="copyLink()" class="btn btn-outline btn-small">
+                    🔗 링크 복사
+                </button>
+                <button onclick="webShare()" class="btn btn-outline btn-small btn-share" id="webShareBtn" style="display: none;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;">
+                        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                    </svg>
+                    더보기
+                </button>
+            </div>
+
+            <p style="margin-top: 2rem; color: var(--text-light); font-size: 0.9rem;">
+                앱 출시 시 입력하신 이메일로 알림을 보내드릴게요.<br>
+                얼리버드 혜택도 놓치지 마세요!
+            </p>
+
+            <a href="{% url 'landing:index' %}" class="btn btn-outline" style="margin-top: 1.5rem;">
+                홈으로 돌아가기
+            </a>
+        </div>
+        {% else %}
+        <!-- 등록 폼 -->
+        <div class="register-card animate-in">
+            <h2>탐험대 합류하기</h2>
+            <p class="register-subtitle">
+                사전 예약하고 무료 스타터 퀘스트 팩을 받으세요!
+            </p>
+
+            <form method="post" class="register-form" id="registerForm">
+                {% csrf_token %}
+                {% if referred_by %}
+                <input type="hidden" name="referred_by" value="{{ referred_by }}">
+                <p
+                    style="background: var(--background); padding: 0.75rem; border-radius: 8px; font-size: 0.9rem; margin-bottom: 1rem;">
+                    🎁 친구의 초대로 방문하셨네요!<br>추가 보상이 준비되어 있어요.
+                </p>
+                {% endif %}
+
+                <!-- 이메일 (필수) -->
+                <div class="form-group">
+                    <label for="email">이메일 주소 <span class="required-mark">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="explorer@example.com"
+                        value="{{ form_data.email }}" required>
+                </div>
+
+                <!-- 전화번호 (선택) -->
+                <div class="form-group">
+                    <label for="phone">전화번호 <span class="optional-mark">(선택)</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="010-1234-5678" value="{{ form_data.phone }}">
+                </div>
+
+                <!-- 거주 지역 (선택) -->
+                <div class="form-group">
+                    <label for="region">거주 지역 <span class="optional-mark">(선택)</span></label>
+                    <select id="region" name="region">
+                        <option value="">선택 안함</option>
+                        <option value="서울">서울</option>
+                        <option value="경기/인천">경기/인천</option>
+                        <option value="부산/경남">부산/경남</option>
+                        <option value="대구/경북">대구/경북</option>
+                        <option value="대전/충청">대전/충청</option>
+                        <option value="광주/전라">광주/전라</option>
+                        <option value="강원">강원</option>
+                        <option value="제주">제주</option>
+                        <option value="해외">해외</option>
+                    </select>
+                </div>
+
+                <!-- 연령대 (선택) -->
+                <div class="form-group">
+                    <label for="age_group">연령대 <span class="optional-mark">(선택)</span></label>
+                    <select id="age_group" name="age_group">
+                        <option value="">선택 안함</option>
+                        <option value="10대">10대</option>
+                        <option value="20대">20대</option>
+                        <option value="30대">30대</option>
+                        <option value="40대">40대</option>
+                        <option value="50대 이상">50대 이상</option>
+                    </select>
+                </div>
+
+                <!-- 에러 메시지 -->
+                {% if error %}
+                <p class="form-error" style="display: block;">{{ error }}</p>
+                {% endif %}
+
+                <!-- 동의 체크박스 영역 -->
+                <div class="consent-section">
+                    <div class="consent-item">
+                        <label class="consent-label">
+                            <input type="checkbox" name="privacy_agreed" required>
+                            <span class="consent-text">
+                                <span class="required-badge">[필수]</span>
+                                개인정보 수집·이용에 동의합니다
+                            </span>
+                        </label>
+                        <a href="{% url 'landing:privacy_policy' %}" target="_blank" class="consent-link">자세히 보기</a>
+                    </div>
+
+                    <div class="consent-item">
+                        <label class="consent-label">
+                            <input type="checkbox" name="marketing_agreed">
+                            <span class="consent-text">
+                                <span class="optional-badge">[선택]</span>
+                                마케팅 정보 수신에 동의합니다 (이메일, SMS)
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    무료로 시작하기
+                </button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    const shareUrl = "{{ share_url|default:'' }}";
+    const referralCode = "{{ referral_code|default:'' }}";
+
+    // 카카오톡 공유
+    function shareKakao() {
+        Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: '🗺️ Jeju Quest - 제주를 게임처럼 플레이하세요!',
+                description: '관광지 줄서기는 그만! 숨겨진 제주를 발견하는 탐험 게임. 지금 사전예약하고 무료 스타터팩 받으세요!',
+                imageUrl: 'https://images.unsplash.com/photo-1579169326371-cd7b8f49f171?w=800&q=80',
+                link: {
+                    mobileWebUrl: shareUrl,
+                    webUrl: shareUrl,
+                },
+            },
+            itemContent: {
+                profileText: 'Jeju Quest',
+            },
+            buttons: [
+                {
+                    title: '탐험대 합류하기',
+                    link: {
+                        mobileWebUrl: shareUrl,
+                        webUrl: shareUrl,
+                    },
+                },
+            ],
+        });
+    }
+
+    // 인스타그램 공유 (링크 복사 후 DM으로 이동)
+    function shareInstagram() {
+        const text = `🗺️ Jeju Quest - 제주를 게임처럼 플레이하세요!\n\n추천 코드: ${referralCode}\n👉 ${shareUrl}`;
+
+        navigator.clipboard.writeText(text).then(() => {
+            // 모바일 체크
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                // 모바일: 인스타그램 앱 DM으로 이동 시도
+                alert('링크가 복사되었습니다!\n인스타그램 DM에서 붙여넣기 해주세요.');
+                window.location.href = 'instagram://direct-inbox';
+            } else {
+                // PC: 인스타그램 웹으로 이동
+                alert('링크가 복사되었습니다!\n인스타그램 DM에서 붙여넣기 해주세요.');
+                window.open('https://www.instagram.com/direct/inbox/', '_blank');
+            }
+        });
+    }
+
+    // 링크 복사
+    function copyLink() {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+            alert('링크가 복사되었습니다!\n' + shareUrl);
+        });
+    }
+
+    // Web Share API (모바일)
+    function webShare() {
+        const shareData = {
+            title: 'Jeju Quest - 제주를 게임처럼 플레이하세요!',
+            text: `🗺️ 제주를 게임처럼 플레이하세요!\n추천 코드: ${referralCode}`,
+            url: shareUrl
+        };
+        navigator.share(shareData).catch((err) => {
+            console.log('공유 취소:', err);
+        });
+    }
+
+    // Web Share API 지원 시 버튼 표시
+    document.addEventListener('DOMContentLoaded', function() {
+        if (navigator.share) {
+            const webShareBtn = document.getElementById('webShareBtn');
+            if (webShareBtn) {
+                webShareBtn.style.display = 'inline-flex';
+            }
+        }
+    });
+</script>
+{% endblock %}

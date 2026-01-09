@@ -1,0 +1,607 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}홈{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container hero-content">
+
+        <!-- 로고 타이틀 + 배지 통합 (프로덕션급 마케팅) -->
+        <div class="hero-logo-title">
+            <div class="hero-logo-frame" id="logoFrame">
+                <!-- 배지: 프레임 상단 중앙 -->
+                <span class="hero-badge-floating">
+                    <span class="badge-pulse"></span>
+                    <i data-lucide="sparkles" class="icon-xs"></i>
+                    <span class="badge-text">Early Access</span>
+                    <span class="badge-count" id="participantCount">127명 참여 중</span>
+                </span>
+
+                <!-- 로고 텍스트 (애니메이션) -->
+                <div class="logo-text-wrap">
+                    <span class="logo-jeju animate-slide-up" style="animation-delay: 0.2s;">
+                        <span class="letter">J</span><span class="letter">e</span><span class="letter">j</span><span class="letter">u</span>
+                    </span>
+                    <span class="logo-quest animate-slide-up" style="animation-delay: 0.5s;">
+                        <span class="letter">Q</span><span class="letter">u</span><span class="letter">e</span><span class="letter">s</span><span class="letter">t</span>
+                        <span class="shimmer-effect"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 서브 카피 (순차 등장) -->
+        <p class="hero-subtitle animate-fade-in" style="animation-delay: 0.8s;">제주를 여행하지 말고,</p>
+        <h1 class="hero-tagline animate-fade-in" style="animation-delay: 1s;">
+            <span class="tagline-highlight">게임처럼</span> 플레이하세요
+        </h1>
+
+        <p class="hero-description animate-fade-in" style="animation-delay: 1.2s;">
+            AR 없는 아날로그 감성의 현실 탐험이 시작됩니다.
+        </p>
+        <div class="hero-cta">
+            <a href="{% url 'landing:pre_register' %}" class="btn btn-primary btn-icon">
+                <i data-lucide="rocket" class="icon-btn"></i>
+                탐험대 합류하고 유료 퀘스트 받기
+            </a>
+            <a href="{% url 'landing:quiz' %}" class="btn btn-outline btn-icon">
+                <i data-lucide="help-circle" class="icon-btn"></i>
+                티저 퀴즈 도전하기
+            </a>
+        </div>
+
+        <div class="map-decoration">
+            <div class="map-frame">
+                <div class="quest-items">
+                    <div class="quest-item" onclick="toggleQuest(this)">
+                        <div class="quest-title">
+                            <i data-lucide="palmtree" class="icon-quest"></i>
+                            숨겨진 보물을 찾아 제주를 탐험하세요
+                        </div>
+                        <div class="quest-detail">
+                            <p>인스타 핫플 말고, <strong>현지인만 아는 비밀 장소</strong>로 안내해드려요.</p>
+                            <p>용천수가 솟는 숨은 해변, 할머니들의 단골 국숫집, 아무도 모르는 오름 뷰포인트...</p>
+                            <p class="quest-hook"><i data-lucide="sparkles" class="icon-xs"></i> "여기 어떻게 알았어요?" 라는 질문을 받게 될 거예요</p>
+                        </div>
+                    </div>
+                    <div class="quest-item" onclick="toggleQuest(this)">
+                        <div class="quest-title">
+                            <i data-lucide="map-pin" class="icon-quest"></i>
+                            관광지 말고, 진짜 제주를 발견하세요
+                        </div>
+                        <div class="quest-detail">
+                            <p>줄 서서 사진 찍는 여행은 이제 그만!</p>
+                            <p><strong>걸으면서 발견하는 이야기</strong> - 돌담 하나에도 숨겨진 제주의 역사가 있어요.</p>
+                            <p class="quest-hook"><i data-lucide="eye" class="icon-xs"></i> 여행이 끝나면, 제주가 다르게 보일 거예요</p>
+                        </div>
+                    </div>
+                    <div class="quest-item" onclick="toggleQuest(this)">
+                        <div class="quest-title">
+                            <i data-lucide="target" class="icon-quest"></i>
+                            퀘스트를 완료하고 보상을 획득하세요
+                        </div>
+                        <div class="quest-detail">
+                            <p>미션을 깰 때마다 <strong>디지털 스탬프와 뱃지</strong>를 수집!</p>
+                            <p>모든 퀘스트를 완료하면? 제주 로컬 카페 할인권, 특별 굿즈가 기다려요.</p>
+                            <p class="quest-hook"><i data-lucide="trophy" class="icon-xs"></i> 당신의 제주 탐험 기록이 특별한 보물이 됩니다</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="quest-hint"><i data-lucide="mouse-pointer-click" class="icon-xs"></i> 클릭해서 자세히 알아보세요!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <div class="section-header">
+            <h2>이렇게 플레이합니다</h2>
+            <p>복잡한 기술 없이, 두 눈과 두 발로 즐기는 진짜 모험</p>
+            <p class="click-hint"><i data-lucide="mouse-pointer-click" class="icon-xs"></i> 카드를 클릭해서 체험해보세요!</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card" onclick="openDemo('map')">
+                <div class="feature-icon">
+                    <i data-lucide="map" class="icon-feature"></i>
+                </div>
+                <h3>탐험가의 지도</h3>
+                <p>관광지 줄 서기는 그만! 현지인만 아는 숨겨진 스팟과 골목길을 지도에서 발견하세요.</p>
+                <span class="play-badge">
+                    <i data-lucide="play" class="icon-xs"></i> 체험하기
+                </span>
+            </div>
+
+            <div class="feature-card" onclick="openDemo('quest')">
+                <div class="feature-icon">
+                    <i data-lucide="search" class="icon-feature"></i>
+                </div>
+                <h3>관찰형 퀘스트</h3>
+                <p>"이 돌하르방의 손 위치는?" 주변을 관찰하고, 단서를 찾고, 미션을 완료하세요.</p>
+                <span class="play-badge">
+                    <i data-lucide="play" class="icon-xs"></i> 체험하기
+                </span>
+            </div>
+
+            <div class="feature-card" onclick="openDemo('reward')">
+                <div class="feature-icon">
+                    <i data-lucide="award" class="icon-feature"></i>
+                </div>
+                <h3>수집과 보상</h3>
+                <p>퀘스트를 완료하면 디지털 스탬프와 뱃지를 수집! 특별한 보상이 기다립니다.</p>
+                <span class="play-badge">
+                    <i data-lucide="play" class="icon-xs"></i> 체험하기
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Demo Modals -->
+<div id="demoModal" class="demo-modal" onclick="closeDemo(event)">
+    <div class="demo-content" onclick="event.stopPropagation()">
+        <button class="demo-close" onclick="closeDemo(event)">
+            <i data-lucide="x"></i>
+        </button>
+
+        <!-- 탐험가의 지도 Demo -->
+        <div id="demo-map" class="demo-screen">
+            <h3><i data-lucide="map" class="icon-md"></i> 탐험가의 지도</h3>
+            <div class="demo-phone">
+                <div class="phone-screen">
+                    <div class="map-demo">
+                        <div class="map-bg">
+                            <svg viewBox="0 0 300 200" class="jeju-map">
+                                <path class="jeju-outline"
+                                    d="M50,100 Q80,60 150,50 Q220,40 260,80 Q280,120 250,150 Q200,180 150,170 Q80,160 50,130 Q30,110 50,100"
+                                    fill="none" stroke="#2D3436" stroke-width="2" />
+                                <text x="150" y="110" text-anchor="middle" class="map-label">제주도</text>
+                            </svg>
+                            <div class="map-pin pin-1" style="top: 30%; left: 25%;">
+                                <i data-lucide="map-pin" class="pin-icon-svg"></i>
+                                <span class="pin-label">숨은 해변</span>
+                            </div>
+                            <div class="map-pin pin-2" style="top: 45%; left: 55%;">
+                                <i data-lucide="map-pin" class="pin-icon-svg"></i>
+                                <span class="pin-label">로컬 맛집</span>
+                            </div>
+                            <div class="map-pin pin-3" style="top: 25%; left: 75%;">
+                                <i data-lucide="map-pin" class="pin-icon-svg"></i>
+                                <span class="pin-label">비밀 오름</span>
+                            </div>
+                            <svg class="route-line" viewBox="0 0 300 200">
+                                <path d="M75,60 Q120,90 165,90 Q200,85 225,50" fill="none" stroke="#FF7F00"
+                                    stroke-width="3" stroke-dasharray="8,4" />
+                            </svg>
+                        </div>
+                        <div class="map-toast">
+                            <i data-lucide="compass" class="icon-xs"></i> 새로운 퀘스트 발견! "용천수의 비밀"
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="demo-desc">지도에서 숨겨진 장소들이 하나씩 나타나요.<br>당신만의 탐험 루트를 만들어보세요!</p>
+        </div>
+
+        <!-- 관찰형 퀘스트 Demo -->
+        <div id="demo-quest" class="demo-screen">
+            <h3><i data-lucide="search" class="icon-md"></i> 관찰형 퀘스트</h3>
+            <div class="demo-phone">
+                <div class="phone-screen">
+                    <div class="quest-demo">
+                        <div class="quest-header">
+                            <span class="quest-badge">퀘스트 #7</span>
+                            <span class="quest-xp">+50 XP</span>
+                        </div>
+                        <div class="quest-question">
+                            <i data-lucide="scan-search" class="icon-lg"></i><br>
+                            이 돌하르방의<br>손 위치를 관찰하세요!
+                        </div>
+                        <div class="quest-image">
+                            <div class="dolhareubang-icon">
+                                <i data-lucide="milestone" class="icon-hero"></i>
+                            </div>
+                        </div>
+                        <div class="quest-options">
+                            <button class="quest-opt" onclick="selectQuestOption(this, false)">오른손이 위</button>
+                            <button class="quest-opt" onclick="selectQuestOption(this, true)">왼손이 위</button>
+                        </div>
+                        <div class="quest-result" id="questResult"></div>
+                    </div>
+                </div>
+            </div>
+            <p class="demo-desc">현장에서 직접 관찰하고 답을 찾아요.<br>정답을 맞히면 다음 단서가 열립니다!</p>
+        </div>
+
+        <!-- 수집과 보상 Demo -->
+        <div id="demo-reward" class="demo-screen">
+            <h3><i data-lucide="award" class="icon-md"></i> 수집과 보상</h3>
+            <div class="demo-phone">
+                <div class="phone-screen">
+                    <div class="reward-demo">
+                        <div class="collection-header">
+                            <span>나의 컬렉션</span>
+                            <span class="collection-count">12/30</span>
+                        </div>
+                        <div class="badge-grid">
+                            <div class="badge-item collected" onclick="showBadgeInfo(this, '해녀의 친구')">
+                                <i data-lucide="shell" class="badge-icon-svg"></i>
+                            </div>
+                            <div class="badge-item collected" onclick="showBadgeInfo(this, '오름 정복자')">
+                                <i data-lucide="mountain" class="badge-icon-svg"></i>
+                            </div>
+                            <div class="badge-item collected" onclick="showBadgeInfo(this, '골목 탐험가')">
+                                <i data-lucide="home" class="badge-icon-svg"></i>
+                            </div>
+                            <div class="badge-item collected" onclick="showBadgeInfo(this, '맛집 헌터')">
+                                <i data-lucide="utensils" class="badge-icon-svg"></i>
+                            </div>
+                            <div class="badge-item new-badge" onclick="collectBadge(this)">
+                                <i data-lucide="milestone" class="badge-icon-svg"></i>
+                                <span class="badge-new">NEW!</span>
+                            </div>
+                            <div class="badge-item locked"><i data-lucide="lock" class="badge-icon-svg"></i></div>
+                            <div class="badge-item locked"><i data-lucide="lock" class="badge-icon-svg"></i></div>
+                            <div class="badge-item locked"><i data-lucide="lock" class="badge-icon-svg"></i></div>
+                        </div>
+                        <div class="reward-toast" id="rewardToast">
+                            <i data-lucide="party-popper" class="icon-sm"></i>
+                            <span class="toast-text">뱃지 획득!</span>
+                        </div>
+                        <div class="reward-bar">
+                            <div class="reward-progress"></div>
+                            <span class="reward-text"><i data-lucide="gift" class="icon-xs"></i> 5개 더 모으면 카페 할인권!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="demo-desc">퀘스트를 완료할 때마다 뱃지를 수집!<br>NEW 뱃지를 클릭해보세요!</p>
+        </div>
+    </div>
+</div>
+
+<!-- Social Proof Section -->
+<section class="social-proof">
+    <div class="container">
+        <div class="section-header">
+            <h2>베타 테스터들의 이야기</h2>
+            <p>먼저 경험한 탐험가들의 생생한 후기</p>
+        </div>
+
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <div class="testimonial-quote"><i data-lucide="quote" class="icon-quote"></i></div>
+                <p class="testimonial-text">
+                    "관광지 줄 안 서고 골목 여행하니까 너무 좋아요. 진짜 제주를 발견한 느낌!"
+                </p>
+                <p class="testimonial-author">
+                    <i data-lucide="user" class="icon-xs"></i> 김지현, 서울
+                </p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-quote"><i data-lucide="quote" class="icon-quote"></i></div>
+                <p class="testimonial-text">
+                    "아이들이랑 보물찾기하듯 퀘스트 깨는 게 너무 재밌었어요. 다음 여행이 기다려져요."
+                </p>
+                <p class="testimonial-author">
+                    <i data-lucide="user" class="icon-xs"></i> 박민수, 부산
+                </p>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-quote"><i data-lucide="quote" class="icon-quote"></i></div>
+                <p class="testimonial-text">
+                    "사진만 찍고 끝나는 여행이 아니라, 진짜 '경험'하는 여행을 했어요."
+                </p>
+                <p class="testimonial-author">
+                    <i data-lucide="user" class="icon-xs"></i> 이소영, 대구
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Starter Pack Section -->
+<section class="starter-pack-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>무료 스타터 팩 & 얼리버드 혜택</h2>
+            <p>사전 예약자에게만 드리는 특별한 선물, 이렇게 사용하세요!</p>
+        </div>
+
+        <div class="starter-content">
+            <!-- 팩 & 쿠폰 카드 -->
+            <div class="reward-cards">
+                <div class="reward-card-item">
+                    <img src="{% static 'images/starter_pack.png' %}" alt="무료 스타터 퀘스트 팩" class="reward-img">
+                    <h3><i data-lucide="package" class="icon-md"></i> 무료 스타터 퀘스트 팩</h3>
+                    <p class="reward-desc">
+                        관광지 줄 서기는 그만! 스타터 팩으로 진짜 제주를 만나보세요.<br>
+                        앱을 켜고 현장에서 비밀을 풀면, 남들은 모르는 보물이 기다립니다.
+                    </p>
+                    <ul class="reward-list">
+                        <li><i data-lucide="milestone" class="icon-list"></i> <strong>돌하르방 탐험</strong>: 숨은 의미 관찰 퀘스트</li>
+                        <li><i data-lucide="footprints" class="icon-list"></i> <strong>올레길 산책</strong>: 포토스팟 발견 미션</li>
+                        <li><i data-lucide="utensils" class="icon-list"></i> <strong>로컬 맛집</strong>: 현지인 단골집 찾기</li>
+                    </ul>
+                </div>
+                <div class="reward-card-item">
+                    <img src="{% static 'images/earlybird_coupon.png' %}" alt="얼리버드 할인 쿠폰" class="reward-img">
+                    <h3><i data-lucide="ticket" class="icon-md"></i> 얼리버드 할인 쿠폰</h3>
+                    <ul class="reward-list">
+                        <li><i data-lucide="zap" class="icon-list"></i> <strong>30% 할인</strong>: 유료 퀘스트 팩 구매 시</li>
+                        <li><i data-lucide="calendar" class="icon-list"></i> <strong>2026년 말까지</strong>: 넉넉한 유효기간</li>
+                        <li><i data-lucide="mail" class="icon-list"></i> <strong>코드 발송</strong>: 이메일로 고유 코드 전달</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 전달 방식 (How it works) -->
+            <div class="how-it-works">
+                <h3><i data-lucide="rocket" class="icon-md"></i> 3단계로 바로 시작하세요</h3>
+                <div class="steps-grid">
+                    <div class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-icon">
+                            <i data-lucide="mail-open" class="icon-step"></i>
+                        </div>
+                        <h4>이메일 수신</h4>
+                        <p>앱 출시 알림과 함께<br>다운로드 링크 & 코드를 받아요</p>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-icon">
+                            <i data-lucide="smartphone" class="icon-step"></i>
+                        </div>
+                        <h4>코드 입력</h4>
+                        <p>앱 설치 후 받은 코드를 입력하면<br>스타터 팩이 자동 잠금 해제!</p>
+                    </div>
+                    <div class="step-line"></div>
+                    <div class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-icon">
+                            <i data-lucide="gamepad-2" class="icon-step"></i>
+                        </div>
+                        <h4>즉시 플레이</h4>
+                        <p>"퀘스트 목록"에서<br>바로 모험을 시작하세요</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-box">
+            <h2>지금 탐험대에 합류하세요</h2>
+            <p>
+                사전 예약자에게만 제공되는 특별한 혜택!<br>
+                무료 스타터 퀘스트 팩 + 얼리버드 할인 쿠폰
+            </p>
+            <a href="{% url 'landing:pre_register' %}" class="btn btn-cta btn-icon">
+                <i data-lucide="arrow-right" class="icon-btn"></i>
+                무료로 시작하기
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Lucide 아이콘 초기화
+    lucide.createIcons();
+
+    // ========================================
+    // 참여자 수 카운팅 애니메이션
+    // ========================================
+    function animateCount(element, start, end, duration) {
+        let startTime = null;
+        const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const current = Math.floor(progress * (end - start) + start);
+            element.textContent = current + '명 참여 중';
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    // 페이지 로드 시 카운트 애니메이션 시작
+    document.addEventListener('DOMContentLoaded', () => {
+        const countEl = document.getElementById('participantCount');
+        if (countEl) {
+            setTimeout(() => {
+                animateCount(countEl, 0, 127, 2000);
+            }, 1500);
+        }
+
+        // 주기적으로 참여자 수 증가 효과 (마케팅)
+        setInterval(() => {
+            const countEl = document.getElementById('participantCount');
+            if (countEl) {
+                const currentText = countEl.textContent;
+                const currentNum = parseInt(currentText) || 127;
+                if (currentNum < 200) {
+                    countEl.textContent = (currentNum + 1) + '명 참여 중';
+                    countEl.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        countEl.style.transform = 'scale(1)';
+                    }, 200);
+                }
+            }
+        }, 8000 + Math.random() * 7000); // 8~15초마다 랜덤 증가
+    });
+
+    // ========================================
+    // 로고 글자 순차 애니메이션
+    // ========================================
+    document.addEventListener('DOMContentLoaded', () => {
+        const letters = document.querySelectorAll('.logo-jeju .letter, .logo-quest .letter');
+        letters.forEach((letter, index) => {
+            letter.style.opacity = '0';
+            letter.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                letter.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+                letter.style.opacity = '1';
+                letter.style.transform = 'translateY(0)';
+            }, 200 + index * 80);
+        });
+    });
+
+    // Quest Map 토글
+    function toggleQuest(element) {
+        document.querySelectorAll('.quest-item.active').forEach(item => {
+            if (item !== element) item.classList.remove('active');
+        });
+        element.classList.toggle('active');
+        const hint = document.querySelector('.quest-hint');
+        if (hint) hint.style.display = 'none';
+    }
+
+    // Demo Modal 열기
+    function openDemo(type) {
+        const modal = document.getElementById('demoModal');
+        const screens = document.querySelectorAll('.demo-screen');
+
+        screens.forEach(s => s.classList.remove('active'));
+        document.getElementById('demo-' + type).classList.add('active');
+
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Lucide 아이콘 재초기화
+        lucide.createIcons();
+
+        // 애니메이션 시작
+        if (type === 'map') startMapAnimation();
+        if (type === 'quest') resetQuestDemo();
+        if (type === 'reward') resetRewardDemo();
+    }
+
+    // Demo Modal 닫기
+    function closeDemo(event) {
+        if (event) event.stopPropagation();
+        const modal = document.getElementById('demoModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // ESC 키로 닫기
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDemo();
+    });
+
+    // 지도 애니메이션
+    function startMapAnimation() {
+        const pins = document.querySelectorAll('.map-pin');
+        const route = document.querySelector('.route-line');
+        const toast = document.querySelector('.map-toast');
+
+        pins.forEach(p => p.style.opacity = '0');
+        route.style.opacity = '0';
+        toast.style.opacity = '0';
+
+        setTimeout(() => {
+            pins[0].style.opacity = '1';
+            pins[0].classList.add('bounce');
+        }, 500);
+
+        setTimeout(() => {
+            pins[1].style.opacity = '1';
+            pins[1].classList.add('bounce');
+        }, 1000);
+
+        setTimeout(() => {
+            pins[2].style.opacity = '1';
+            pins[2].classList.add('bounce');
+        }, 1500);
+
+        setTimeout(() => {
+            route.style.opacity = '1';
+        }, 2000);
+
+        setTimeout(() => {
+            toast.style.opacity = '1';
+            toast.classList.add('slide-up');
+        }, 2500);
+    }
+
+    // 퀘스트 데모 리셋
+    function resetQuestDemo() {
+        const opts = document.querySelectorAll('.quest-opt');
+        const result = document.getElementById('questResult');
+        opts.forEach(o => {
+            o.classList.remove('correct', 'wrong');
+            o.disabled = false;
+        });
+        result.innerHTML = '';
+        result.className = 'quest-result';
+    }
+
+    // 퀘스트 옵션 선택
+    function selectQuestOption(btn, isCorrect) {
+        const opts = document.querySelectorAll('.quest-opt');
+        const result = document.getElementById('questResult');
+
+        opts.forEach(o => o.disabled = true);
+
+        if (isCorrect) {
+            btn.classList.add('correct');
+            result.innerHTML = '<i data-lucide="check-circle" class="icon-sm"></i> 정답! +50 XP 획득!';
+            result.classList.add('show', 'success');
+        } else {
+            btn.classList.add('wrong');
+            result.innerHTML = '<i data-lucide="x-circle" class="icon-sm"></i> 아쉬워요! 다시 관찰해보세요';
+            result.classList.add('show', 'fail');
+            setTimeout(resetQuestDemo, 1500);
+        }
+        lucide.createIcons();
+    }
+
+    // 보상 데모 리셋
+    function resetRewardDemo() {
+        const newBadge = document.querySelector('.new-badge');
+        const toast = document.getElementById('rewardToast');
+        if (newBadge) {
+            newBadge.classList.remove('collected');
+            newBadge.innerHTML = '<i data-lucide="milestone" class="badge-icon-svg"></i><span class="badge-new">NEW!</span>';
+            lucide.createIcons();
+        }
+        toast.classList.remove('show');
+    }
+
+    // 뱃지 수집
+    function collectBadge(el) {
+        if (el.classList.contains('collected')) return;
+
+        el.classList.add('collected', 'pop');
+        el.innerHTML = '<i data-lucide="milestone" class="badge-icon-svg"></i>';
+        lucide.createIcons();
+
+        const toast = document.getElementById('rewardToast');
+        toast.classList.add('show');
+
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    }
+
+    // 뱃지 정보 표시
+    function showBadgeInfo(el, name) {
+        el.classList.add('wiggle');
+        setTimeout(() => el.classList.remove('wiggle'), 500);
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}티저 퀴즈{% endblock %}
+
+{% block content %}
+<section class="quiz-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="hero-badge">🎯 관찰형 미션 체험</span>
+            <h2>티저 퀘스트</h2>
+            <p>실제 앱에서 만나게 될 퀘스트를 미리 체험해보세요!</p>
+            <p class="quiz-count">총 {{ total_quizzes }}개의 퀘스트 중 랜덤 출제</p>
+        </div>
+
+        <div class="quiz-card">
+            <h3 class="quiz-question">
+                {{ quiz.question }}
+            </h3>
+
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">
+                {{ quiz.description }}
+            </p>
+
+            <form id="quizForm" method="post" action="{% url 'landing:quiz_result' %}">
+                {% csrf_token %}
+                <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+
+                <div class="quiz-options">
+                    {% for option in quiz.options %}
+                    <button type="submit" name="answer" value="{{ option.value }}" class="quiz-option">
+                        {{ option.label }}
+                    </button>
+                    {% endfor %}
+                </div>
+            </form>
+
+            <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--text-light);">
+                힌트: {{ quiz.hint }}
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.quiz-option').forEach(option => {
+    option.addEventListener('click', function(e) {
+        document.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        this.classList.add('selected');
+    });
+});
+</script>
+{% endblock %}

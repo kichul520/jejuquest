@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Jeju Quest{% endblock %} | 제주를 플레이하세요</title>
+    <meta name="description" content="제주를 여행하지 말고, 게임처럼 플레이하세요. AR 없는 아날로그 감성의 현실 탐험.">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js" integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" crossorigin="anonymous"></script>
+    <script>
+        Kakao.init('d3bcb43aeb8f7bfa8227459508ecc356');
+    </script>
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <div class="paper-texture">
+        <header class="header">
+            <nav class="nav container">
+                <a href="{% url 'landing:index' %}" class="logo">
+                    <span class="logo-icon-wrap">
+                        <i data-lucide="compass" class="logo-icon-svg"></i>
+                    </span>
+                    <span class="logo-text">Jeju Quest</span>
+                </a>
+                <ul class="nav-links">
+                    <li>
+                        <a href="{% url 'landing:quiz' %}" class="nav-link">
+                            <i data-lucide="help-circle" class="nav-icon"></i>
+                            티저 퀴즈
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'landing:pre_register' %}" class="btn btn-nav">
+                            <i data-lucide="users" class="nav-icon"></i>
+                            탐험대 합류
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <p class="footer-text">© 2026 연트래블러스(주). 제주퀘스트 - 제주를 플레이하세요.</p>
+                <p class="footer-sub">문의: <a href="mailto:chall777@naver.com">chall777@naver.com</a></p>
+            </div>
+        </footer>
+    </div>
+
+    {% block extra_js %}{% endblock %}
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

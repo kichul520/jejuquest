@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}개인정보처리방침{% endblock %}
+
+{% block content %}
+<section class="policy-section">
+    <div class="container">
+        <div class="policy-card animate-in">
+            <h1>개인정보 수집·이용 동의서</h1>
+            <p class="policy-date">시행일: 2026년 1월 8일</p>
+
+            <div class="policy-content">
+                <p class="policy-intro">
+                    연트래블러스(주)(이하 "회사")가 운영하는 제주퀘스트는 「개인정보보호법」에 따라 이용자의 개인정보를 보호하고
+                    이와 관련한 고충을 신속하게 처리하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
+                </p>
+
+                <div class="policy-section-box">
+                    <h2>1. 개인정보 수집 목적</h2>
+                    <ul>
+                        <li>서비스 출시 알림 발송</li>
+                        <li>앱 사전 예약 및 얼리버드 혜택 제공</li>
+                        <li>추천인 보상 시스템 운영</li>
+                        <li>서비스 개선을 위한 통계 분석</li>
+                    </ul>
+                </div>
+
+                <div class="policy-section-box">
+                    <h2>2. 수집하는 개인정보 항목</h2>
+                    <table class="policy-table">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>수집 항목</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge-required">필수</span></td>
+                                <td>이메일 주소</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-optional">선택</span></td>
+                                <td>전화번호, 거주 지역, 연령대</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="policy-section-box">
+                    <h2>3. 개인정보 보유 및 이용 기간</h2>
+                    <p>
+                        수집된 개인정보는 <strong>서비스 정식 출시 후 1년간</strong> 보유하며,
+                        이후 동의를 얻어 갱신하거나 파기합니다.
+                    </p>
+                    <p class="policy-note">
+                        ※ 단, 관계 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관됩니다.
+                    </p>
+                </div>
+
+                <div class="policy-section-box">
+                    <h2>4. 동의 거부 권리 및 불이익</h2>
+                    <p>
+                        귀하는 개인정보 수집·이용에 대한 동의를 거부할 권리가 있습니다.
+                    </p>
+                    <p class="policy-warning">
+                        ⚠️ 다만, <strong>필수 항목(이메일)</strong>에 대한 동의를 거부하실 경우
+                        사전 예약 서비스 이용이 제한됩니다.
+                    </p>
+                    <p>
+                        선택 항목에 대한 동의 거부 시에는 사전 예약 서비스 이용에 제한이 없습니다.
+                    </p>
+                </div>
+
+                <div class="policy-section-box">
+                    <h2>5. 마케팅 정보 수신 동의 (선택)</h2>
+                    <p>
+                        마케팅 정보 수신에 동의하시면 다음의 혜택을 받으실 수 있습니다:
+                    </p>
+                    <ul>
+                        <li>신규 퀘스트 및 이벤트 소식</li>
+                        <li>특별 할인 쿠폰 및 프로모션</li>
+                        <li>제주 여행 관련 유용한 정보</li>
+                    </ul>
+                    <p class="policy-note">
+                        ※ 마케팅 수신 동의는 언제든지 철회하실 수 있습니다.
+                    </p>
+                </div>
+
+                <div class="policy-section-box">
+                    <h2>6. 개인정보 보호책임자</h2>
+                    <p>
+                        개인정보 보호책임자: 연트래블러스(주) 제주퀘스트 운영팀<br>
+                        문의: <a href="mailto:chall777@naver.com">chall777@naver.com</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="policy-footer">
+                <a href="{% url 'landing:pre_register' %}" class="btn btn-primary">
+                    ← 사전 예약으로 돌아가기
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
