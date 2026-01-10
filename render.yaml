@@ -15,3 +15,9 @@ services:
         value: False
       - key: ALLOWED_HOSTS
         value: .onrender.com
+
+databases:
+  - name: jeju-quest-db
+    plan: free
+    databaseName: jeju_quest
+    user: jeju_quest_user
