@@ -1776,6 +1776,11 @@ ul {
 
 .footer-text {
     margin-bottom: var(--space-xs);
+    word-break: keep-all;
+}
+
+.footer-sub {
+    word-break: keep-all;
 }
 
 .footer-sub a {
@@ -1837,6 +1842,14 @@ ul {
 
     .nav-links {
         gap: var(--space-xs);
+    }
+
+    /* 네비게이션 버튼 텍스트 줄바꿈 방지 */
+    .nav-link,
+    .btn-nav {
+        white-space: nowrap;
+        padding: 8px 12px;
+        font-size: 12px;
     }
 
     .hero-cta {
