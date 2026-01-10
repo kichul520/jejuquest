@@ -1,0 +1,41 @@
+# --- 시스템 및 환경 설정 (필수 제외) ---
+.git/
+.gitignore
+.env                # 보안: API 키 등 비밀 정보 유출 방지 (중요!)
+.venv/              # 가상환경 폴더
+venv/
+env/
+__pycache__/        # 파이썬 컴파일 캐시 (바이너리)
+*.pyc
+.DS_Store           # macOS 시스템 파일
+
+# --- Django 웹 개발 관련 ---
+db.sqlite3          # DB 파일 (바이너리라 읽으면 토큰 낭비)
+*.db
+staticfiles/        # 수집된 정적 파일들 (중복 정보)
+media/              # 업로드된 이미지/파일
+
+# --- 머신러닝/데이터 사이언스 (토큰 폭탄 방지) ---
+*.csv               # 데이터 파일은 보통 매우 큼 (필요하면 head만 따로 복사해서 보여주세요)
+*.tsv
+*.jsonl
+*.parquet
+data/               # 데이터 폴더 통째로 제외
+dataset/
+
+# --- 모델 아티팩트 (바이너리 파일) ---
+*.pt                # PyTorch 가중치
+*.pth
+*.pkl               # Pickle 파일
+*.h5                # Keras/TensorFlow
+*.onnx
+model_checkpoints/
+
+# --- 프론트엔드/기타 (혼합 프로젝트일 경우) ---
+node_modules/       # JS 라이브러리 (토큰 하마)
+dist/
+build/
+*.lock              # 패키지 잠금 파일 (정보량이 적은데 줄 수는 김)
+pnpm-lock.yaml
+package-lock.json
+uv.lock             # uv 패키지 매니저 잠금 파일

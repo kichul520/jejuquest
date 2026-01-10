@@ -172,7 +172,7 @@
     // [Deep Fix] Hardcoded domain to match Kakao Developers settings exactly.
     // Dynamic window.location.origin can sometimes be unreliable with proxies/mixed content.
     const DOMAIN = 'https://jeju-quest-landing.onrender.com';
-    const shareUrl = DOMAIN + "{% url 'landing:pre_register' %}?ref=" + referralCode;
+    const shareUrl = DOMAIN + "/?ref=" + referralCode;
 
     // Debugging: Show URL before sharing to confirm it's correct
     // alert("공유 URL: " + shareUrl); // Uncomment if needed for deeper debugging
