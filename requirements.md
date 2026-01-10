@@ -161,3 +161,52 @@ v1.2 (Design System):
 - 사전 예약 폼: register-section, register-card, consent-section 등 CSS 스타일 추가.
 - 퀴즈 결과: result-section, stamp 효과 등 CSS 스타일 추가.
 - 배포: Render.com용 render.yaml 설정 파일 생성.
+
+v1.3 (2026-01-11 - Kakao Share & Mobile UI Fix):
+
+1. 카카오톡 공유 링크 문제 해결
+   - 문제: 카카오톡 공유 메시지는 전송되지만, 링크가 클릭되지 않고 "모바일에서 확인해주세요"로 표시됨
+   - 원인: 카카오 Developers 콘솔에서 "제품 링크 관리"에 도메인 미등록
+   - 해결: 카카오 콘솔 > 제품 링크 관리 > 웹 도메인에 `https://jeju-quest-landing.onrender.com` 등록
+   - 참고: JavaScript SDK 도메인(플랫폼 키)과 제품 링크 관리 도메인은 별도로 등록 필요
+
+2. 카카오 공유 URL 변경
+   - 변경 전: `/pre-register/?ref=XXX` (사전예약 페이지)
+   - 변경 후: `/?ref=XXX` (메인 페이지)
+   - 파일: `project/templates/landing/pre_register.html` (line 175)
+   - 커밋: `8c47a0e`
+
+3. 모바일 네비게이션 텍스트 줄바꿈 문제 해결
+   - 문제: 모바일에서 네비게이션 버튼 텍스트가 두 줄로 나뉨 ("티저 퀴/즈", "탐험대 합/류")
+   - 해결:
+     - HTML: 텍스트를 `<span class="nav-text">`로 감쌈 (`project/templates/base.html`)
+     - CSS: 480px 이하에서 `.nav-text { display: none; }` 적용하여 아이콘만 표시
+   - 파일: `project/static/css/style.css` (line 1889-1903)
+   - 커밋: `f6e6755`
+
+4. 푸터 텍스트 줄바꿈 문제 해결
+   - 문제: 모바일에서 푸터 텍스트가 단어 중간에서 줄바꿈됨 ("플레이하세/요.")
+   - 해결:
+     - `word-break: keep-all` 추가 (한글 단어 중간 줄바꿈 방지)
+     - 480px 이하에서 폰트 크기 축소 (11px)
+   - 파일: `project/static/css/style.css` (line 1777-1784, 1919-1931)
+   - 커밋: `f6e6755`
+
+커밋 히스토리:
+- `f6e6755` - fix: mobile nav shows icons only, optimize footer text
+- `1b48e26` - fix: prevent text wrapping in mobile nav buttons and footer
+- `8c47a0e` - fix: change kakao share link to main page instead of pre-register
+- `b6f8e0a` - fix: hardcode kakao share domain to match console
+
+7. 카카오 설정 정보
+
+| 항목 | 값 |
+|------|-----|
+| JavaScript 키 | `d3bcb43aeb8f7bfa8227459508ecc356` |
+| 앱 이름 | 제주퀘스트 |
+| SDK 버전 | 2.5.0 |
+| 등록 도메인 | `https://jeju-quest-landing.onrender.com` |
+
+카카오 콘솔 설정 체크리스트:
+- [x] 플랫폼 키 > JavaScript SDK 도메인 등록
+- [x] 제품 링크 관리 > 웹 도메인 등록
