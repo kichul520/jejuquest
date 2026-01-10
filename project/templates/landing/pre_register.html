@@ -158,8 +158,14 @@
 
 {% block extra_js %}
 <script>
-    const shareUrl = "{{ share_url|default:'' }}";
     const referralCode = "{{ referral_code|default:'' }}";
+    // Force use of current window origin to ensure domain match
+    // This fixes issues where server-side generated URL might differ slightly (http/https)
+    // from the domain registered in Kakao Developers.
+    const shareUrl = window.location.origin + "{% url 'landing:pre_register' %}?ref=" + referralCode;
+
+    // Debugging
+    console.log("Sharing URL:", shareUrl);
 
     // 카카오톡 공유
     function shareKakao() {
